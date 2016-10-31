@@ -2,6 +2,8 @@ package services;
 
 import database.*;
 import org.apache.log4j.Logger;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 import security.PasswordManager;
 
 import java.io.IOException;
@@ -15,10 +17,11 @@ public class ApplicationContext {
 
     private static final ApplicationContext APPLICATION_CONTEXT = new ApplicationContext();
     private final static Logger logger = Logger.getLogger(ApplicationContext.class);
-    private static DBConnectionPool dbConnectionPool;
+    //private static DBConnectionPool dbConnectionPool;
     private static UserService userService;
     private static ImageService imageService;
     private static CommentsService commentsService;
+    private static SessionFactory sessionFactory;
 
     private ApplicationContext() {
         try {
@@ -26,17 +29,18 @@ public class ApplicationContext {
             InputStream input = classLoader.getResourceAsStream("bmwgallery.properties");
             Properties properties = new Properties();
             properties.load(input);
-            dbConnectionPool = new DBConnectionPool(properties.getProperty("CONNECTION_URL"),
+            sessionFactory = new Configuration()
+                    .addResource("User.hbm.xml")
+                    .addResource("Image.hbm.xml")
+                    .addResource("Comment.hbm.xml")
+                    .setProperties(System.getProperties())
+                    .configure()
+                    .buildSessionFactory();
+            /*dbConnectionPool = new DBConnectionPool(properties.getProperty("CONNECTION_URL"),
                     properties.getProperty("DB_DRIVER"),
                     properties.getProperty("DB_USER"),
                     properties.getProperty("DB_PASSWORD"),
-                    Integer.parseInt(properties.getProperty("CONN_COUNT")));
-            DataBaseProvider dataBaseProvider = new DataBaseProvider(dbConnectionPool);
-            InitProcessor initProcessor = new InitProcessor(new CommentsDAO(dataBaseProvider), //todo: Think about this shit
-                    new ImageDAO(dataBaseProvider),
-                    new UserDAO(dataBaseProvider),
-                    dataBaseProvider);
-            initProcessor.checkTables();
+                    Integer.parseInt(properties.getProperty("CONN_COUNT")));*/
         } catch (IOException e) {
             logger.error("Error while creating ApplicationContext", e);
         }
@@ -48,21 +52,21 @@ public class ApplicationContext {
 
     private UserService getUserService() {
         if (userService == null) {
-            userService = new UserService(new PasswordManager(), new UserDAO(new DataBaseProvider(dbConnectionPool)));
+            userService = new UserService(new PasswordManager(), new UserDAO(sessionFactory));
         }
         return userService;
     }
 
     private ImageService getImageService() {
         if (imageService == null) {
-            imageService = new ImageService(new ImageDAO(new DataBaseProvider(dbConnectionPool)));
+            imageService = new ImageService(new ImageDAO(sessionFactory));
         }
         return imageService;
     }
 
     private CommentsService getCommentsService() {
         if (commentsService == null) {
-            commentsService = new CommentsService(new CommentsDAO(new DataBaseProvider(dbConnectionPool)));
+            commentsService = new CommentsService(new CommentsDAO(sessionFactory));
         }
         return commentsService;
     }

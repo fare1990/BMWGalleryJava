@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="entity.Comment" table="BB_COMMENTS">
+        <id name="commentId" type="int" column="id">
+            <generator class="identity"/>
+        </id>
+        <property name="commentAuthorId" column="author_id" type="int"/>
+        <property name="pictureId" column="picture_id" type="int"/> <!--Think about this field. Maybe better implement hibernate dependency-->
+        <property name="commentText" column="comment" type="string"/>
+        <property name="createdDate" column="comment_date" type="date"/>
+        <bag name="subcomments" cascade="all-delete-orphan" lazy="false" fetch="select">
+            <key column="reply_to"/>
+            <one-to-many class="entity.Comment"/>
+        </bag>
+        <many-to-one name="parent" class="entity.Comment" lazy="false" fetch="select">
+            <column name="reply_to"/>
+        </many-to-one>
+        <!--<many-to-one name="pictureId" class="entity.Image">
+            <column name="picture_id"/>
+        </many-to-one>-->
+    </class>
+</hibernate-mapping>

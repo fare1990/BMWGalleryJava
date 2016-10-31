@@ -41,7 +41,7 @@ public class UploadServlet extends HttpServlet {
         saveFile(filePart, fileName);
 
         User user = (User)request.getAttribute("user");
-        imageService.addImage(user.getUserid(),description,"users_images/"+fileName); //todo:do this shit well!!!
+        imageService.addImage(user.getUserId(),description,"users_images/"+fileName); //todo:do this well!!!
         response.sendRedirect("/gallery?name=user");
 
     }

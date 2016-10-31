@@ -1,26 +1,32 @@
 package entity;
 
+import java.io.Serializable;
+import java.util.Date;
+
 /**
  * Created by Fare on 21.07.2016.
  */
-public class User {
+public class User implements Serializable {
 
-    private int userid;
+    private int userId;
     private String username;
     private String password;
     private String email;
     private String galleryName;
-    private int role;
+    private Date createdDate;
 
-    public int getUserid() {
-        return userid;
+    public User() {
     }
 
-    public void setUserid(int userid) {
-        this.userid = userid;
+    public int getUserId() {
+        return userId;
     }
 
-    public String getUsername(){
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public String getUsername() {
         return username;
     }
 
@@ -52,11 +58,12 @@ public class User {
         this.galleryName = galleryName;
     }
 
-    public int getRole() {
-        return role;
+    public Date getCreatedDate() {
+        return createdDate;
     }
 
-    public void setRole(int role) {
-        this.role = role;
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
+
 }

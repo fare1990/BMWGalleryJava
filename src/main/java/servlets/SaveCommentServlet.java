@@ -31,7 +31,7 @@ public class SaveCommentServlet extends HttpServlet {
             commentsService.saveComment(pictureId,
                     replyTo,
                     request.getParameter("commentText"),
-                    user.getUserid());
+                    user.getUserId());
 
             response.sendRedirect("/showimage?id=" + pictureId);
         }

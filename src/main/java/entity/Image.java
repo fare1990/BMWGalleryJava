@@ -1,11 +1,12 @@
 package entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by Fare on 27.07.2016.
  */
-public class Image {
+public class Image implements Serializable{
 
     private int imageId;
     private int userId;

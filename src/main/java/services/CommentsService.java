@@ -27,7 +27,7 @@ public class CommentsService {
         comment.setCommentAuthorId(authorId);
         comment.setCommentText(commentText);
         if(replyTo.isEmpty()) {
-            commentsDAO.addComment(comment, Integer.parseInt(pictureId));
+            commentsDAO.addComment(comment, 0, Integer.parseInt(pictureId));
         }
         else{
             commentsDAO.addComment(comment, Integer.parseInt(replyTo), Integer.parseInt(pictureId));

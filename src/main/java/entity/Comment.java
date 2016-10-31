@@ -1,18 +1,21 @@
 package entity;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Fare on 04.08.2016.
  */
-public class Comment {
+public class Comment implements Serializable{
 
     private int commentId;
+    private int pictureId;
     private String commentText;
     private Date createdDate;
     private int commentAuthorId;
-    private ArrayList<Comment> subcomments;
+    private List<Comment> subcomments;
+    private Comment parent;
 
     public int getCommentId() {
         return commentId;
@@ -46,11 +49,27 @@ public class Comment {
         this.commentAuthorId = commentAuthorId;
     }
 
-    public ArrayList<Comment> getSubcomments() {
+    public List<Comment> getSubcomments() {
         return subcomments;
     }
 
-    public void setSubcomments(ArrayList<Comment> subcomments) {
+    public void setSubcomments(List<Comment> subcomments) {
         this.subcomments = subcomments;
+    }
+
+    public Comment getParent() {
+        return parent;
+    }
+
+    public void setParent(Comment parent) {
+        this.parent = parent;
+    }
+
+    public int getPictureId() {
+        return pictureId;
+    }
+
+    public void setPictureId(int pictureId) {
+        this.pictureId = pictureId;
     }
 }

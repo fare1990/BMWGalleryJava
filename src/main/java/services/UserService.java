@@ -7,6 +7,7 @@ import security.PasswordManager;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 
 
 /**
@@ -33,6 +34,7 @@ public class UserService {
         user.setEmail(email);
         user.setPassword(passwordManager.getHexString(password));
         user.setGalleryName("none");
+        user.setCreatedDate(new Date());
         userDAO.addUser(user);
     }
 

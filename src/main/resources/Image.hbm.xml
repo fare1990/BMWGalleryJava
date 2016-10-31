@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="entity.Image" table="BB_IMAGES">
+        <id name="imageId" type="int" column="id">
+            <generator class="identity"/>
+        </id>
+        <property name="userId" column="user_id" type="int"/>
+        <property name="imageName" column="picture_name" type="string"/>
+        <property name="imagePath" column="path" type="string"/>
+        <property name="categoryName" column="category" type="string"/>
+        <property name="dateCreated" column="created_date" type="date"/>
+    </class>
+</hibernate-mapping>

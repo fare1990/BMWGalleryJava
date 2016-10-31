@@ -59,7 +59,7 @@ public class MainServlet extends HttpServlet {
                 view.setGalleryCreateFormVisible(false);
                 view.setUserGalleryVisible(true);
                 view.setUserGalleryName(galleryName);
-                view.setUserGalleryFirstImagePath(imageService.getFirstUserImagePath(user.getUserid()));
+                view.setUserGalleryFirstImagePath(imageService.getFirstUserImagePath(user.getUserId()));
             }
             else {
                 view.setGalleryCreateFormVisible(true);

@@ -47,7 +47,7 @@ public class GalleryServlet extends HttpServlet {
             view.setUserName(user.getEmail());
 
             String galleryType = request.getParameter("name");
-            view.setImagelist(imageService.getGallery(galleryType, user.getUserid()));
+            view.setImagelist(imageService.getGallery(galleryType, user.getUserId()));
             if (!user.getGalleryName().equals("none")) {
 
                 if (!galleryType.equals("user")) {
