@@ -12,9 +12,10 @@
     http://www.springframework.org/schema/context/spring-context.xsd">
 
 
-    <!--<import resource="spring-dispatcher-servlet.xml"/>-->
-    <context:component-scan base-package="controllers.*" annotation-config="true"/>
     <mvc:annotation-driven/>
+    <mvc:default-servlet-handler/>
+    <context:component-scan base-package="controllers"/>
+
 
     <bean id="sessionFactory"
           class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
