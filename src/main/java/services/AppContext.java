@@ -13,18 +13,18 @@ import java.util.Properties;
 /**
  * Created by Fare on 17.10.2016.
  */
-public class ApplicationContext {
+public class AppContext {
 
-    private static final ApplicationContext APPLICATION_CONTEXT = new ApplicationContext();
-    private final static Logger logger = Logger.getLogger(ApplicationContext.class);
+    private static final AppContext APPLICATION_CONTEXT = new AppContext();
+    private final static Logger logger = Logger.getLogger(AppContext.class);
     //private static DBConnectionPool dbConnectionPool;
     private static UserService userService;
     private static ImageService imageService;
     private static CommentsService commentsService;
     private static SessionFactory sessionFactory;
 
-    private ApplicationContext() {
-        try {
+    private AppContext() {
+        /*try {
             ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
             InputStream input = classLoader.getResourceAsStream("bmwgallery.properties");
             Properties properties = new Properties();
@@ -36,17 +36,17 @@ public class ApplicationContext {
                     .setProperties(System.getProperties())
                     .configure()
                     .buildSessionFactory();
-            /*dbConnectionPool = new DBConnectionPool(properties.getProperty("CONNECTION_URL"),
+            dbConnectionPool = new DBConnectionPool(properties.getProperty("CONNECTION_URL"),
                     properties.getProperty("DB_DRIVER"),
                     properties.getProperty("DB_USER"),
                     properties.getProperty("DB_PASSWORD"),
-                    Integer.parseInt(properties.getProperty("CONN_COUNT")));*/
+                    Integer.parseInt(properties.getProperty("CONN_COUNT")));
         } catch (IOException e) {
-            logger.error("Error while creating ApplicationContext", e);
-        }
+            logger.error("Error while creating AppContext", e);
+        }*/
     }
 
-    public static ApplicationContext getInstance() {
+    public static AppContext getInstance() {
         return APPLICATION_CONTEXT;
     }
 

@@ -1,7 +1,8 @@
 package filters;
 
 import entity.User;
-import services.ApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+import services.AppContext;
 import services.UserService;
 
 import javax.servlet.*;
@@ -18,15 +19,23 @@ import java.io.IOException;
 @WebFilter("/*")
 public class LoginFilter implements Filter {
 
+    private UserService userService;
+
+    /*public void setUserService(UserService userService) {
+        this.userService = userService;
+    }*/
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-
+        userService = WebApplicationContextUtils.
+                getRequiredWebApplicationContext(filterConfig.getServletContext()).
+                getBean(UserService.class);
     }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,
                          FilterChain chain) throws IOException, ServletException {
-        UserService  userService = ApplicationContext.getInstance().get(UserService.class);
+        //UserService  userService = AppContext.getInstance().get(UserService.class);
         HttpServletRequest servletRequest = (HttpServletRequest) request;
         Cookie[] cookies = servletRequest.getCookies();
         User user = null;

@@ -1,10 +1,10 @@
 package servlets;
 
 import entity.User;
-import services.ApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 import services.ImageService;
-import services.UserService;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -25,10 +25,18 @@ public class UploadServlet extends HttpServlet {
 
     private ImageService imageService;
 
-    public UploadServlet (){
-        this.imageService = ApplicationContext.getInstance().get(ImageService.class);
+    /*public UploadServlet (){
+        this.imageService = AppContext.getInstance().get(ImageService.class);
+    }*/
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        imageService = WebApplicationContextUtils
+                .getRequiredWebApplicationContext(config.getServletContext()).getBean(ImageService.class);
     }
 
+    //todo: fix hardcoded dir!!!
     private static final String UPLOAD_DIR = "C:\\Users\\Fare\\BMWGalleryJava\\src\\main\\webapp\\users_images\\";
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

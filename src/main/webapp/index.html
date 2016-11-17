@@ -1,0 +1,132 @@
+<html>
+<head>
+	<title>
+		BMW Gallery
+	</title>
+	<link rel="stylesheet"
+		  type="text/css"
+		  href="font-awesome-4.5.0/css/font-awesome.css"
+	/>
+	<link rel="stylesheet"
+		  type="text/css"
+		  href="css/bootstrap.css"
+	/>
+	<link rel="stylesheet"
+		  type="text/css"
+		  href="css/style.css"
+	/>
+
+	<script src="js/jquery-2.2.2.js"></script>
+	<script src="js/my.js" type="text/javascript"></script>
+	<script src="js/bootstrap.min.js"></script> <!-- bootsrap libraries -->
+</head>
+<body>
+<nav class="navbar navbar-default navbar-inverse" role="navigation">
+	<div class="container-fluid hide-navigation">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<!-- <a class="navbar-brand" href="#">Login dropdown</a> -->
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="/home">Home page</a></li>
+				<li><a href="/gallery?name=classic">Classic BMW Gallery</a></li>
+				<li><a href="classicWheelsGal.html">Classic BMW Wheels Gallery</a></li>
+				<li><a href="modernGallery.html">Modern BMW Gallery</a></li>
+				<li><a href="modernWheelsGal.html">Modern BMW Wheels Gallery</a></li>
+			</ul>
+
+			<ul class="nav navbar-nav navbar-right">
+				<li><p class="navbar-text" id="userName"> <!--Here we inject userName from js display function --> </p></li>
+
+				<li class="dropdown login-view">
+					<!--Here we inject menu from js display function -->
+				</li>
+
+			</ul>
+		</div><!-- /.navbar-collapse -->
+	</div><!-- /.container-fluid -->
+</nav>
+<div class="container">
+	<h1 id="textInterval"><!--Here we inject headerText from js display function --></h1>
+	<div class="row interactiveSmallImgs">
+		<div class="col-md-3 borders">
+			<a href="/gallery?name=classic">
+				<img  	id="image1"
+						class="crop-img"
+						src="classic_BMW_img/bmw-classic1.jpg"
+						alt="Classic BMW"
+				/>
+				<p> Classic BMW Photo</p>
+			</a>
+		</div>
+		<div class="col-md-3 borders">
+			<a href="someshit1.html">
+				<img
+						id="image2"
+						class="crop-img"
+						src="classic_wheels_img/classic-wheels4.jpg"
+						alt="Classic BMW Wheels"
+				/>
+				<p> Classic BMW Wheels</p>
+			</a>
+		</div>
+		<div class="col-md-3 borders">
+			<a href="someshit1.html">
+				<img
+						id="image3"
+						class="crop-img"
+						src="modern_BMW_img/BMW-Modern3.jpg"
+						alt="Modern BMW"
+				/>
+				<p> Modern BMW Photo</p>
+			</a>
+		</div>
+		<div class="col-md-3 borders">
+			<a href="someshit1.html">
+				<img
+						id="image4"
+						class="crop-img"
+						src="modern_wheels_img/modern-wheels1.jpg"
+						alt="Modern BMW Wheels"
+				/>
+				<p> Modern BMW Wheels</p>
+			</a>
+		</div>
+
+		<h3 id="userGalleryHeader">Your gallery</h3>
+		<div class="col-md-3 borders userGallery">
+			<a href="/gallery?name=user">
+				<img
+						id="image5"
+						class="crop-img"
+						src=""
+						alt=""
+				/>
+				<p> </p>
+			</a>
+		</div>
+
+
+		<div class="col-md-3 borders createGallery">
+			<p>Create your own gallery!</p>
+			<form class="form" role="form" method="post" action="home" accept-charset="UTF-8">
+				<input type="text" name="galleryname" placeholder="Galleryname" />
+				<input type="submit" value="Create" class="btn btn-success btn-sm" />
+			</form>
+		</div>
+
+
+	</div>
+
+</div>
+</body>
+</html>

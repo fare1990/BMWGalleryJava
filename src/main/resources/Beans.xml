@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+    <beans xmlns="http://www.springframework.org/schema/beans"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:mvc="http://www.springframework.org/schema/mvc"
+           xmlns:context="http://www.springframework.org/schema/context"
+           xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <!--<import resource="spring-dispatcher-servlet.xml"/>-->
+    <context:component-scan base-package="controllers.*" annotation-config="true"/>
+    <mvc:annotation-driven/>
+
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="mappingResources">
+            <list>
+                <value>User.hbm.xml</value>
+                <value>Comment.hbm.xml</value>
+                <value>Image.hbm.xml</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQL9Dialect</prop>
+                <!--<prop key="hibernate.current_session_context_class">thread</prop>-->
+                <prop key="hibernate.show_sql">true</prop>
+            </props>
+        </property>
+
+    </bean>
+
+    <bean id="dataSource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.postgresql.Driver" />
+        <property name="url" value="jdbc:postgresql://localhost:5432/postgres" />
+        <property name="username" value="postgres" />
+        <property name="password" value="abc123" />
+    </bean>
+
+    <bean id="CommentsDAO" class="database.CommentsDAO">
+        <constructor-arg ref="sessionFactory"/>
+    </bean>
+    <bean id="UserDAO" class="database.UserDAO">
+        <constructor-arg ref="sessionFactory"/>
+    </bean>
+    <bean id="ImageDAO" class="database.ImageDAO">
+        <constructor-arg ref="sessionFactory"/>
+    </bean>
+    <bean id="PasswordManager" class="security.PasswordManager"/>
+    <bean id="CommentsService" class="services.CommentsService">
+        <constructor-arg ref="CommentsDAO"/>
+    </bean>
+    <bean id="ImageService" class="services.ImageService">
+        <constructor-arg ref="ImageDAO"/>
+    </bean>
+    <bean id="UserService" class="services.UserService">
+        <constructor-arg ref="PasswordManager"/>
+        <constructor-arg ref="UserDAO"/>
+    </bean>
+    <bean id="GalleryServlet" class="servlets.GalleryServlet">
+        <!--<property name="imageService" ref="ImageService"/>-->
+    </bean>
+    <!--<bean id="MainServlet" class="servlets.MainServlet">
+        <property name="imageService" ref="ImageService"/>
+        <property name="userService" ref="UserService"/>
+    </bean>-->
+    <bean id="RegistrationServlet" class="servlets.RegistrationServlet">
+        <!--<property name="userService" ref="UserService"/>-->
+    </bean>
+    <bean id="LoginServlet" class="servlets.LoginServlet">
+        <!--<property name="userService" ref="UserService"/>-->
+    </bean>
+    <bean id="SaveCommentServlet" class="servlets.SaveCommentServlet">
+        <!--<property name="commentsService" ref="CommentsService"/>-->
+    </bean>
+    <bean id="SingleImageServlet" class="servlets.SingleImageServlet">
+       <!-- <property name="commentsService" ref="CommentsService"/>
+        <property name="imageService" ref="ImageService"/> -->
+    </bean>
+    <bean id="UploadServlet" class="servlets.UploadServlet">
+        <!-- <property name="imageService" ref="ImageService"/> -->
+    </bean>
+    <bean id="LoginFilter" class="filters.LoginFilter">
+        <!--<property name="userService" ref="UserService"/>-->
+    </bean>
+
+</beans>

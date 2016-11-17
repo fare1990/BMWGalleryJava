@@ -8,19 +8,9 @@ public class MainView {
     private String headerText;
     private String userName;
     private boolean loginFormVisible;
-    private boolean logoutFormVisible;
-    private boolean galleryCreateFormVisible;
     private String userGalleryName;
     private String userGalleryFirstImagePath;
     private boolean userGalleryVisible;
-
-    public boolean isLogoutFormVisible() {
-        return logoutFormVisible;
-    }
-
-    public void setLogoutFormVisible(boolean logoutFormVisible) {
-        this.logoutFormVisible = logoutFormVisible;
-    }
 
     public String getHeaderText() {
         return headerText;
@@ -44,14 +34,6 @@ public class MainView {
 
     public void setLoginFormVisible(boolean loginFormVisible) {
         this.loginFormVisible = loginFormVisible;
-    }
-
-    public boolean isGalleryCreateFormVisible() {
-        return galleryCreateFormVisible;
-    }
-
-    public void setGalleryCreateFormVisible(boolean galleryCreateFormVisible) {
-        this.galleryCreateFormVisible = galleryCreateFormVisible;
     }
 
     public String getUserGalleryName() {

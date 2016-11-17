@@ -1,11 +1,11 @@
 package servlets;
 
-import services.ApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 import services.CommentsService;
 import services.ImageService;
-import services.UserService;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,11 +20,27 @@ import java.io.IOException;
 @WebServlet("/showimage")
 public class SingleImageServlet extends HttpServlet {
 
+    CommentsService commentsService;
+    ImageService imageService;
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        imageService = WebApplicationContextUtils
+                .getRequiredWebApplicationContext(config.getServletContext()).getBean(ImageService.class);
+        commentsService = WebApplicationContextUtils
+                .getRequiredWebApplicationContext(config.getServletContext()).getBean(CommentsService.class);
+    }
+
+    public void setImageService(ImageService imageService) {
+        this.imageService = imageService;
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        CommentsService commentsService = ApplicationContext.getInstance().get(CommentsService.class);
-        ImageService imageService = ApplicationContext.getInstance().get(ImageService.class);
+        //CommentsService commentsService = AppContext.getInstance().get(CommentsService.class);
+        //ImageService imageService = AppContext.getInstance().get(ImageService.class);
         int pictureId = Integer.parseInt(request.getParameter("id"));
         request.setAttribute("commentslist", commentsService.getCommentsToPicture(pictureId));
         request.setAttribute("imagepath", imageService.getImagePathById(pictureId));

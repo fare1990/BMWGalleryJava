@@ -1,12 +1,5 @@
 @media(max-width:768px){
-	body{
-			background: black !important;
-			color:yellow !important;
-			font-family:arial !important;
-	}
-	#navstyle{
-	background:black;
-	border-color:yellow !important;
+
 }
 
  #login-dp{
@@ -73,9 +66,7 @@ h1{
 #backward, #forward{
 	font-size:10em;
 }
-/*#count{
-	color:green;
-}*/
+
 .crop-img{
   max-height:150px;
   max-width:100%;
@@ -198,4 +189,20 @@ h1{
 	position:relative;
 	//position:absolute;
 	//top:250px;
+}
+
+.hide-navigation{
+	display:none;
+}
+
+#userGalleryHeader{
+	display:none;
+}
+
+.userGallery{
+	display:none;
+}
+
+.createGallery{
+	display:none;
 }

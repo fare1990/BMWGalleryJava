@@ -1,12 +1,13 @@
 package servlets;
 
 import entity.User;
-import services.ApplicationContext;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 import services.ImageService;
-import services.UserService;
 import view.GalleryView;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,8 +24,15 @@ public class GalleryServlet extends HttpServlet {
 
     private ImageService imageService;
 
-    public GalleryServlet() {
-        this.imageService = ApplicationContext.getInstance().get(ImageService.class);
+    /*public GalleryServlet() {
+        this.imageService = AppContext.getInstance().get(ImageService.class);
+    }*/
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        imageService = WebApplicationContextUtils
+                .getRequiredWebApplicationContext(config.getServletContext()).getBean(ImageService.class);
     }
 
     @Override

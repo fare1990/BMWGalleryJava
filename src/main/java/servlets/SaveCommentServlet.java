@@ -1,10 +1,11 @@
 package servlets;
 
 import entity.User;
-import services.ApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 import services.CommentsService;
-import services.UserService;
+import services.ImageService;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,11 +20,19 @@ import java.io.IOException;
 @WebServlet("/comment")
 public class SaveCommentServlet extends HttpServlet {
 
+    CommentsService commentsService;
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        commentsService = WebApplicationContextUtils
+                .getRequiredWebApplicationContext(config.getServletContext()).getBean(CommentsService.class);
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        CommentsService commentsService = ApplicationContext.getInstance().get(CommentsService.class);
+        //CommentsService commentsService = AppContext.getInstance().get(CommentsService.class);
         User user = (User)request.getAttribute("user");
         if (user != null) {
             String pictureId = request.getParameter("pictureId");

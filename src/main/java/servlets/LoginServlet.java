@@ -1,9 +1,11 @@
 package servlets;
 
 
-import services.ApplicationContext;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 import services.UserService;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
@@ -16,10 +18,22 @@ import java.io.IOException;
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 
+    private UserService userService;
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        /*SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,
+                config.getServletContext());*/
+        userService = WebApplicationContextUtils.
+                getRequiredWebApplicationContext(config.getServletContext()).
+                getBean(UserService.class);
+    }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        UserService userService = ApplicationContext.getInstance().get(UserService.class);
+        //UserService userService = AppContext.getInstance().get(UserService.class);
         String email = request.getParameter("email");
         if (userService.checkLogin(email, request.getParameter("password"))) {
             Cookie loginCookie = new Cookie("user", email);
